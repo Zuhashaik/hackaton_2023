@@ -13,6 +13,7 @@ def page3():
     st.write("Discover hidden secrets in your surroundings with cutting-edge surroundings detection technology")
 
 # Set up the layout of the UI with 3 containers
+st.set_page_config(page_title="Hackathon", page_icon=":smiley:", layout="wide")
 col1, col2, col3 = st.columns(3)
 
 # Add a button to the first container that redirects to Page 1
@@ -29,7 +30,7 @@ with col2:
 
 # Add a button to the third container that redirects to Page 3
 with col3:
-    st.write("Surrounding Detection")
+    st.write("Surroundings Detection")
     if st.button("Try SD"):
         st.session_state.page = "page3"
     
@@ -37,12 +38,12 @@ with col3:
 if "page" in st.session_state:
     if st.session_state.page == "page1":
         page1()
-        st.button("Back to Main", key="main")
+        
     elif st.session_state.page == "page2":
         page2()
-        st.button("Back to Main", key="main")
+        
     elif st.session_state.page == "page3":
         page3()
-        st.button("Back to Main", key="main")
+        
 else:
     st.write("Welcome to the Main Page!")
