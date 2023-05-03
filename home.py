@@ -32,29 +32,27 @@ def transcribe_audio():
 
 def page1():
     st.title("Text Detection from Image")
-    # Title of the app
     st.title("Image Uploader")
 
-    # A header for the section
+
     st.header("Upload an Image")
 
-    # A file uploader for the image
+
     image_file = st.file_uploader("Choose an image", type=["jpg", "jpeg", "png"])
 
-    # If an image is uploaded, show it
+
     if image_file is not None:
-        # Read the image file as a bytes-like object
         image_bytes = io.BytesIO(image_file.read())
 
-        # Use keras_ocr to read the image
+ 
         pipeline = keras_ocr.pipeline.Pipeline()
         images = keras_ocr.tools.read(image_bytes)
         images = images.reshape((-1,) + images.shape)
 
-        # Recognize text in the image
+        
         prediction_groups = pipeline.recognize(images)
 
-        # Extract the text predictions from the recognition results
+       
         text_predictions = []
         for predictions in prediction_groups:
             prediction_text = []
@@ -62,7 +60,6 @@ def page1():
                 prediction_text.append(word[0])
             text_predictions.append(" ".join(prediction_text))
 
-        # Display the annotated image with the recognized text
         st.subheader("Annotated Image with Text Predictions")
         fig, axs = plt.subplots(nrows=len(images), figsize=(10, 20))
         axs_flat = np.ravel(axs)
@@ -72,23 +69,18 @@ def page1():
             ax.axis("off")
         st.pyplot(fig)
 
-        # Display the recognized text
         st.subheader("Text Predictions")
         st.write("\n".join(text_predictions))
-    
-# Define the function to redirect to Page 2
+
 def page2():
     st.title("Person Detection")
-    st.write("Spot the human: Person detection for a safer world")
     
-# Define the function to redirect to Page 3
 def page3():
     st.title("Surroundings Detection")
-    st.write("Discover hidden secrets in your surroundings with cutting-edge surroundings detection technology")
+    
 if __name__ == '__main__':
     user_input = transcribe_audio()
-
-    # Display buttons based on user input
+    
     if user_input:
         if "text detection mode" in user_input:
             page1()
